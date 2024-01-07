@@ -93,6 +93,7 @@ func main() {
 	router.GET("/albums", getAlbums)
 	router.GET("/albums/:id", getAlbumById)
 	router.POST("/albums", postAlbums)
+	router.PATCH("/albums", checkoutAlbum)
 
 	router.Run("localhost:8080")
 }

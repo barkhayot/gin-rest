@@ -11,4 +11,4 @@ Simple usaga of Gin framework for REST api implementation
 - `GET /albums`: Get all albums.
 - `GET /albums/:id`: Get details of an album.
 - `POST /albums`: Create a new album.
-- `GET /checkout?id=<album_id>`: Checkout an album.
+- `PATCH /checkout?id=<album_id>`: Checkout an album.

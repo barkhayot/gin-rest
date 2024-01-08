@@ -9,6 +9,7 @@ import (
 // Routes
 func main() {
 	router := gin.Default()
+
 	router.GET("/albums", controller.GetAlbums)
 	router.GET("/albums/:id", controller.GetAlbumById)
 	router.POST("/albums", controller.PostAlbums)

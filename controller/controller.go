@@ -3,13 +3,12 @@ package controller
 import (
 	"fetch/helper"
 	"fetch/model"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func GetAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, model.Albums)
+	c.JSON(200, model.Albums)
 }
 
 func GetAlbumById(c *gin.Context) {
@@ -17,10 +16,10 @@ func GetAlbumById(c *gin.Context) {
 	album, err := helper.AlbumById(id)
 
 	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Album by ID not found"})
+		c.JSON(404, gin.H{"message": "Album by ID not found"})
 		return
 	}
-	c.IndentedJSON(http.StatusOK, album)
+	c.JSON(200, album)
 }
 
 func PostAlbums(c *gin.Context) {
@@ -38,18 +37,18 @@ func CheckoutAlbum(c *gin.Context) {
 	id, ok := c.GetQuery("id")
 
 	if ok == false {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "missing query ID param"})
+		c.JSON(400, gin.H{"message": "missing query ID param"})
 	}
 
 	album, err := helper.ValidateData(id)
 
 	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Album by ID not found"})
+		c.JSON(404, gin.H{"message": "Album by ID not found"})
 		return
 	}
 
 	album.Quantity -= 1
-	c.IndentedJSON(http.StatusOK, album)
+	c.JSON(200, album)
 
 }
 
@@ -57,16 +56,16 @@ func GetAlbumBack(c *gin.Context) {
 	id, ok := c.GetQuery("id")
 
 	if ok == false {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "missing query ID param"})
+		c.JSON(400, gin.H{"message": "missing query ID param"})
 	}
 
 	album, err := helper.ValidateData(id) //albumById(id)
 
 	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Album by ID not found"})
+		c.JSON(404, gin.H{"message": "Album by ID not found"})
 		return
 	}
 
 	album.Quantity += 1
-	c.IndentedJSON(http.StatusOK, album)
+	c.JSON(200, album)
 }

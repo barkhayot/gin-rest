@@ -54,9 +54,11 @@ func CheckoutAlbum(c *gin.Context) {
 
 func GetAlbumBack(c *gin.Context) {
 	id, ok := c.GetQuery("id")
+	title, ok2 := c.GetQuery("title")
 
-	if ok == false {
+	if ok == false || ok2 == false {
 		c.JSON(400, gin.H{"message": "missing query ID param"})
+		return
 	}
 
 	album, err := helper.ValidateData(id) //albumById(id)
@@ -67,5 +69,6 @@ func GetAlbumBack(c *gin.Context) {
 	}
 
 	album.Quantity += 1
+	album.Title = title
 	c.JSON(200, album)
 }
